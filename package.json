@@ -4,7 +4,7 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "name": "barrage-ui",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Best and lightest barrage component for web ui.",
   "main": "index.js",
   "repository": {

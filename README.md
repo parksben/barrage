@@ -98,6 +98,30 @@ barrage.setConfig({ opacity: 0.5 });
 
 ## 弹幕数据
 
+### 结构与内容
+
+弹幕数据为一个对象数组。每个数组元素对应一条弹幕记录，其结构如下：
+
+```js
+{
+  createdAt: '2019-01-13T13:34:47.126Z',
+  time: 1200,
+  text: '我膨胀了',
+  fontFamily: 'SimSun',
+  fontSize: 32,
+  color: 'yellow',
+}
+```
+
+> 数据字段
+
+- createdAt - 弹幕的创建时间 (**必须**)
+- time - 弹幕的动画时间 (**必须**)
+- text - 弹幕文本内容 (**必须**)
+- fontFamily - 弹幕文本的字体 (可选)
+- fontSize - 弹幕文本字号大小，单位：像素 (可选)
+- color - 弹幕文本的颜色 (可选)
+
 ### 装填弹幕
 
 装填弹幕有两种方式：
@@ -136,7 +160,7 @@ barrage.add({
 
 `.add()` 方法一般搭配 数据提交/请求 操作进行使用，以实现真实的线上应用。
 
-**场景举例**
+> 场景举例
 
 某用户在客户端提交了一条弹幕到服务端，服务端将数据存储并分发给正在进行会话的客户端，最后客户端通过 `.add()` 方法进行数据更新。
 
@@ -144,11 +168,11 @@ barrage.add({
 
 ### .play()
 
-**描述**
+> **描述**
 
 用于播放动画。若当前为暂停状态，则从当前进度继续播放
 
-**用例**
+> **用例**
 
 ```js
 barrage.play();
@@ -156,11 +180,11 @@ barrage.play();
 
 ### .pause()
 
-**描述**
+> **描述**
 
 用于暂停动画
 
-**用例**
+> **用例**
 
 ```js
 barrage.pause();
@@ -168,11 +192,11 @@ barrage.pause();
 
 ### .replay()
 
-**描述**
+> **描述**
 
 用于重新开始播放动画
 
-**用例**
+> **用例**
 
 ```js
 barrage.replay();
@@ -180,15 +204,15 @@ barrage.replay();
 
 ### .goto(progress)
 
-**描述**
+> **描述**
 
 用于跳转播放进度。此方法在动画播放和暂停的状态下均有效
 
-**参数**
+> **参数**
 
 progress - 待跳转的进度。值为一个毫秒数，表示跳转到动画的第几毫秒
 
-**用例**
+> **用例**
 
 ```js
 barrage.goto(15000); // 跳转到第 15 秒
@@ -252,7 +276,7 @@ const barrage = new Barrage({
 barrage.setMask('mask.png'); // 传入蒙版图像的 url
 ```
 
-**注意**
+> 注意事项
 
 `mask` 参数和 `.setMask()` 方法的参数类型一致，可接收图像的 url 或 [ImageData](https://developer.mozilla.org/zh-CN/docs/Web/API/ImageData)
 
