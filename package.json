@@ -1,0 +1,26 @@
+{
+  "scripts": {
+    "prepublishOnly": "npm run changelog",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+  },
+  "name": "barrage-ui",
+  "version": "1.0.1",
+  "description": "Best and lightest barrage component for web ui.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/parksben/barrage.git"
+  },
+  "keywords": [
+    "barrage",
+    "danmu",
+    "web-player",
+    "video-player",
+    "canvas"
+  ],
+  "author": "parksben",
+  "license": "MIT",
+  "devDependencies": {
+    "conventional-changelog-cli": "^2.0.11"
+  }
+}
