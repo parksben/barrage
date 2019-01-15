@@ -80,9 +80,7 @@ export default class Barrage {
     this.afterRender = afterRender;
 
     // 数据初始化
-    if (data && data.length) {
-      this.setData(data);
-    }
+    this.setData(data);
   }
 
   setMask(mask) {
@@ -141,9 +139,13 @@ export default class Barrage {
   }
 
   setData(data) {
+    // 保存上一次数据集
+    if (this.data) this.prevData = this.data;
+
     // 获取弹幕数据并计算出布局信息
     this.data = data.map(
       ({
+        key,
         time,
         text,
         fontSize = this.config.fontSize,
@@ -151,10 +153,17 @@ export default class Barrage {
         color = this.config.defaultColor,
         createdAt = new Date().toISOString(),
       }) => {
+        // 若上一次数据集中已存在该数据，则直接保留
+        if (this.prevData && this.prevData.some(d => d.key === key)) {
+          return this.prevData.find(d => d.key === key);
+        }
+
+        // 弹幕布局
         this.ctx.font = `${fontSize}px ${fontFamily}`;
         const { width } = this.ctx.measureText(text);
 
         return {
+          key,
           time,
           text,
           fontSize,
@@ -208,7 +217,7 @@ export default class Barrage {
   _render() {
     // 计算播放进度，单位：毫秒
     let progress = Date.now() - this.startTime;
-    if (this.config.duration) progress = progress % this.config.duration;
+    if (this.config.duration > 0) progress = progress % this.config.duration;
 
     // 弹幕整体向左移动的总距离
     const translateX = (this.config.speed * progress) / 1000;
@@ -225,8 +234,11 @@ export default class Barrage {
       )
       .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
+    // 当前播放状态
+    const animState = !!this.pauseAt ? 'paused' : 'playing';
+
     // 执行渲染前的回调
-    if (this.beforeRender) this.beforeRender(this.ctx);
+    if (this.beforeRender) this.beforeRender(this.ctx, progress, animState);
 
     this.ctx.save();
     if (this.mask) {
@@ -284,7 +296,7 @@ export default class Barrage {
     this.ctx.restore();
 
     // 执行渲染后的回调
-    if (this.afterRender) this.afterRender(this.ctx);
+    if (this.afterRender) this.afterRender(this.ctx, progress, animState);
 
     // 执行下一帧
     if (this.animation) requestAnimationFrame(() => this._render());
@@ -303,13 +315,16 @@ export default class Barrage {
 
   play() {
     if (!this.startTime) this.startTime = Date.now();
-    if (this.pauseAt) this.goto(this.pauseAt);
+    if (this.pauseAt) {
+      this.goto(this.pauseAt);
+      this.pauseAt = undefined;
+    }
     this._play();
   }
 
   replay() {
-    this.pause();
     this.startTime = Date.now();
+    if (this.pauseAt) this.pauseAt = undefined;
     this._play();
   }
 
