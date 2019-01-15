@@ -246,9 +246,9 @@ export default class Barrage {
         this.anotherCanvas = document.createElement('canvas');
         this.anotherCanvas.width = this.canvas.width;
         this.anotherCanvas.height = this.canvas.height;
-        this.anothorContext = this.anotherCanvas.getContext('2d');
+        this.anotherContext = this.anotherCanvas.getContext('2d');
       } else {
-        this.anothorContext.clearRect(
+        this.anotherContext.clearRect(
           0,
           0,
           this.anotherCanvas.width,
@@ -258,7 +258,7 @@ export default class Barrage {
     }
 
     // 绘制数据
-    const context = this.mask ? this.anothorContext : this.ctx;
+    const context = this.mask ? this.anotherContext : this.ctx;
     context.shadowColor = 'rgba(50, 50, 50, 0.5)';
     context.shadowOffsetX = 0;
     context.shadowOffsetY = 0;
@@ -298,6 +298,7 @@ export default class Barrage {
 
   goto(progress) {
     this.startTime = Date.now() - progress;
+    if (!this.animation) this._render();
   }
 
   play() {
