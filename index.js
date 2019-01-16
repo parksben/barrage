@@ -8,9 +8,9 @@ import {
 const defaultConfig = {
   duration: -1, // -1 表示不循环播放
   speed: 100,
-  fontSize: 20,
-  fontFamily: 'serif',
-  textShadowBlur: 0.1,
+  fontSize: 24,
+  fontFamily: 'Microsoft Yahei',
+  textShadowBlur: 1.0,
   opacity: 1.0,
   defaultColor: '#fff',
 };
@@ -54,6 +54,7 @@ export default class Barrage {
     this.canvas.width = this.parent.clientWidth;
     this.canvas.height = this.parent.clientHeight;
     this.canvas.style.pointerEvents = 'none'; // canvas 事件穿透
+    this.canvas.style.letterSpacing = '1.5px'; // canvas 字符间距
     this.parent.appendChild(this.canvas);
 
     // 若父节点存在其他子节点，则设置画布为绝对定位
@@ -105,15 +106,19 @@ export default class Barrage {
   }
 
   _randomTop() {
+    const LINE_HEIGHT = 1.32;
+
     // 计算大致的行数
     this.rowCount =
       this.rowCount ||
-      Math.floor(this.canvas.height / (2 * this.config.fontSize));
+      Math.floor(this.canvas.height / (LINE_HEIGHT * this.config.fontSize));
 
     // 随机产生纵向位置
     const randomTop =
-      0.5 * this.config.fontSize +
-      Math.floor(this.rowCount * Math.random()) * 2 * this.config.fontSize;
+      (this.config.fontSize * (LINE_HEIGHT - 1)) / 2 +
+      Math.floor(this.rowCount * Math.random()) *
+        LINE_HEIGHT *
+        this.config.fontSize;
 
     return randomTop;
   }
@@ -283,10 +288,11 @@ export default class Barrage {
 
     // 绘制数据
     const context = this.mask ? this.anotherContext : this.ctx;
-    context.shadowColor = 'rgba(50, 50, 50, 0.5)';
+    context.globalAlpha = this.config.opacity;
+    context.shadowColor = 'rgba(0, 0, 0, 1)';
     context.shadowOffsetX = 0;
     context.shadowOffsetY = 0;
-    context.shadowBlur = this.config.textShadowBlur * this.config.fontSize;
+    context.shadowBlur = this.config.textShadowBlur * 2;
     context.textBaseline = 'top';
     dataShown.forEach(d => {
       context.font = `${d.fontSize}px ${d.fontFamily}`;
@@ -304,7 +310,6 @@ export default class Barrage {
         this.canvas.height
       );
     }
-    this.ctx.globalAlpha = this.config.opacity;
     this.ctx.restore();
 
     // 执行渲染后的回调

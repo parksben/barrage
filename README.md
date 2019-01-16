@@ -1,6 +1,6 @@
 # Barrage UI
 
-Best and lightest barrage component for web ui.
+Best and lightest barrage component for web UI.
 
 适用于 web 端用户界面和播放器的轻量级弹幕组件
 
@@ -36,7 +36,6 @@ const barrage = new Barrage({
   config: {
     // 全局配置项
     duration: 20000, // 弹幕循环周期(单位：毫秒)
-    fontFamily: 'Microsoft Yahei', // 弹幕默认字体
     defaultColor: '#fff', // 弹幕默认颜色
   },
 });
@@ -80,9 +79,9 @@ barrage.play();
 {
   duration: -1, // 弹幕动画的循环周期，-1 表示不循环播放
   speed: 100, // 弹幕的运动速度
-  fontSize: 20, // 文字大小，单位：像素
-  fontFamily: 'serif', // 字体
-  textShadowBlur: 0.1, // 字体阴影大小，有效值 0-1
+  fontSize: 24, // 文字大小，单位：像素
+  fontFamily: 'Microsoft Yahei', // 字体，默认值：微软雅黑
+  textShadowBlur: 1.0, // 字体阴影扩散，有效值 >= 0
   opacity: 1.0, // 透明度，有效值 0-1
   defaultColor: '#fff', // 默认颜色，与 CSS 颜色属性一致
 }
@@ -165,7 +164,7 @@ barrage.add({
   key: 'fctc651a9pm2j20bia8j',
   time: 1000,
   text: '这是新增的一条弹幕',
-  fontSize: 24,
+  fontSize: 26,
   color: '#0ff',
 });
 ```
@@ -262,7 +261,7 @@ barrage.goto(15000); // 跳转到第 15 秒
 
 Barrage 组件提供了实现 蒙版弹幕 效果的可能。基于本组件实现的 demo 效果如下：
 
-![蒙版弹幕效果](https://github.com/parksben/barrage/raw/master/images/demo.jpg)
+![蒙版弹幕效果](https://github.com/parksben/barrage/raw/master/images/demo.png)
 
 ### 什么是“蒙版弹幕”
 

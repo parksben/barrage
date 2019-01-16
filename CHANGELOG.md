@@ -1,4 +1,4 @@
-## 1.0.6 (2019-01-16)
+## 1.0.7 (2019-01-16)
 
 
 ### Bug Fixes
@@ -8,7 +8,7 @@
 
 ### Features
 
-* 实现动画状态的可访问属性 ([b48cb77](https://github.com/parksben/barrage/commit/b48cb77))
+* 实现动画状态的可访问属性 ([e9c0b00](https://github.com/parksben/barrage/commit/e9c0b00))
 
 
 
