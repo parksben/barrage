@@ -180,7 +180,7 @@ barrage.add({
 
 ## 动画控制接口
 
-### .play()
+### barrage.play()
 
 > **描述**
 
@@ -192,7 +192,7 @@ barrage.add({
 barrage.play();
 ```
 
-### .pause()
+### barrage.pause()
 
 > **描述**
 
@@ -204,7 +204,7 @@ barrage.play();
 barrage.pause();
 ```
 
-### .replay()
+### barrage.replay()
 
 > **描述**
 
@@ -216,7 +216,7 @@ barrage.pause();
 barrage.replay();
 ```
 
-### .goto(progress)
+### barrage.goto(progress)
 
 > **描述**
 
@@ -231,6 +231,32 @@ progress - 待跳转的进度。值为一个毫秒数，表示跳转到动画的
 ```js
 barrage.goto(15000); // 跳转到第 15 秒
 ```
+
+## 动画状态属性
+
+### barrage.progress
+
+> **含义**
+
+当前动画的播放进度
+
+> **类型**
+
+描述播放进度的一个毫秒数
+
+### barrage.animState
+
+> **含义**
+
+当前动画的播放状态
+
+> **类型**
+
+描述播放状态的一个字符串：
+
+- 'ready' - 已就绪。即：barrage 实例已创建，但从未播放
+- 'paused' - 已暂停
+- 'playing' - 播放中
 
 ## 蒙版弹幕
 
@@ -308,7 +334,7 @@ const barrage = new Barrage({
   container: 'barrage',
   data: example,
   beforeRender: (ctx, progress) => {
-    const imageData = getMask(progress); // 用于获取当进度对应蒙版的方法
+    const imageData = getMask(progress); // 用于获取当前进度对应蒙版的方法
     barrage.setMask(imageData);
   },
 });

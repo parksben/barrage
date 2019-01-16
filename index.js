@@ -53,6 +53,7 @@ export default class Barrage {
     this.canvas.className = 'barrage-canvas';
     this.canvas.width = this.parent.clientWidth;
     this.canvas.height = this.parent.clientHeight;
+    this.canvas.style.pointerEvents = 'none'; // canvas 事件穿透
     this.parent.appendChild(this.canvas);
 
     // 若父节点存在其他子节点，则设置画布为绝对定位
@@ -214,13 +215,26 @@ export default class Barrage {
     }
   }
 
-  _render() {
-    // 计算播放进度，单位：毫秒
-    let progress = Date.now() - this.startTime;
-    if (this.config.duration > 0) progress = progress % this.config.duration;
+  // 计算播放进度，单位：毫秒
+  get progress() {
+    if (!this.startTime) return 0;
+    if (this.pauseAt !== undefined) return this.pauseAt;
 
+    let p = Date.now() - this.startTime;
+    if (this.config.duration > 0) p %= this.config.duration;
+
+    return p;
+  }
+
+  // 获取当前播放状态
+  get animState() {
+    if (!this.startTime) return 'ready';
+    return this.pauseAt !== undefined ? 'paused' : 'playing';
+  }
+
+  _render() {
     // 弹幕整体向左移动的总距离
-    const translateX = (this.config.speed * progress) / 1000;
+    const translateX = (this.config.speed * this.progress) / 1000;
 
     // 清空画布
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -234,11 +248,9 @@ export default class Barrage {
       )
       .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
-    // 当前播放状态
-    const animState = !!this.pauseAt ? 'paused' : 'playing';
-
     // 执行渲染前的回调
-    if (this.beforeRender) this.beforeRender(this.ctx, progress, animState);
+    if (this.beforeRender)
+      this.beforeRender(this.ctx, this.progress, this.animState);
 
     this.ctx.save();
     if (this.mask) {
@@ -296,7 +308,8 @@ export default class Barrage {
     this.ctx.restore();
 
     // 执行渲染后的回调
-    if (this.afterRender) this.afterRender(this.ctx, progress, animState);
+    if (this.afterRender)
+      this.afterRender(this.ctx, this.progress, this.animState);
 
     // 执行下一帧
     if (this.animation) requestAnimationFrame(() => this._render());
@@ -309,13 +322,14 @@ export default class Barrage {
   }
 
   goto(progress) {
+    if (this.pauseAt !== undefined) this.pauseAt = 0;
     this.startTime = Date.now() - progress;
     if (!this.animation) this._render();
   }
 
   play() {
     if (!this.startTime) this.startTime = Date.now();
-    if (this.pauseAt) {
+    if (this.pauseAt !== undefined) {
       this.goto(this.pauseAt);
       this.pauseAt = undefined;
     }
@@ -324,7 +338,7 @@ export default class Barrage {
 
   replay() {
     this.startTime = Date.now();
-    if (this.pauseAt) this.pauseAt = undefined;
+    if (this.pauseAt !== undefined) this.pauseAt = undefined;
     this._play();
   }
 
