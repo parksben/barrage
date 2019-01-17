@@ -327,7 +327,7 @@ export default class Barrage {
   }
 
   goto(progress) {
-    if (this.pauseAt !== undefined) this.pauseAt = 0;
+    if (this.pauseAt !== undefined) this.pauseAt = undefined;
     this.startTime = Date.now() - progress;
     if (!this.animation) this._render();
   }
