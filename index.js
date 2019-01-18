@@ -5,7 +5,7 @@ import {
 } from './utils';
 
 // 支持通过 barrage.setConfig() 接口修改的配置项
-const defaultConfig = {
+const DEFAULT_CONFIG = {
   duration: -1, // -1 表示不循环播放
   speed: 100,
   fontSize: 24,
@@ -13,6 +13,12 @@ const defaultConfig = {
   textShadowBlur: 1.0,
   opacity: 1.0,
   defaultColor: '#fff',
+};
+
+// 蒙版信息
+const GLOBAL_MASK = {
+  type: null, // 蒙版类型：'url' 'ImageData'
+  mask: null, // 蒙版数据：ImageData
 };
 
 /**
@@ -73,7 +79,7 @@ export default class Barrage {
 
     // 全局参数设置
     this.setConfig({
-      ...defaultConfig,
+      ...DEFAULT_CONFIG,
       ...config,
     });
 
@@ -85,23 +91,32 @@ export default class Barrage {
     this.setData(data);
   }
 
-  setMask(mask) {
-    if (typeof mask === 'string') {
-      this.maskType = 'image';
-      loadImage(mask).then(img => {
-        this.mask = img;
+  setMask(input) {
+    if (typeof input === 'string') {
+      GLOBAL_MASK.type = 'url';
+      loadImage(input).then(img => {
+        GLOBAL_MASK.data = img;
       });
-    } else if (Object.prototype.toString.apply(mask) === '[object ImageData]') {
-      this.maskType = 'data';
-      this.mask = mask;
+    } else if (
+      Object.prototype.toString.apply(input) === '[object ImageData]'
+    ) {
+      GLOBAL_MASK.type = 'ImageData';
+      GLOBAL_MASK.data = input;
+    } else {
+      GLOBAL_MASK.type = null;
+      GLOBAL_MASK.data = null;
     }
+  }
+
+  clearMask() {
+    this.setMask();
   }
 
   setConfig(config) {
     if (!this.config) this.config = {};
 
     for (let [prop, value] of Object.entries(config)) {
-      if (defaultConfig[prop]) this.config[prop] = value;
+      if (DEFAULT_CONFIG[prop]) this.config[prop] = value;
     }
   }
 
@@ -258,12 +273,12 @@ export default class Barrage {
       this.beforeRender(this.ctx, this.progress, this.animState);
 
     this.ctx.save();
-    if (this.mask) {
-      if (this.maskType === 'data') {
-        this.ctx.putImageData(this.mask, 0, 0);
-      } else if (this.maskType === 'image') {
+    if (GLOBAL_MASK.data) {
+      if (GLOBAL_MASK.type === 'ImageData') {
+        this.ctx.putImageData(GLOBAL_MASK.data, 0, 0);
+      } else if (GLOBAL_MASK.type === 'url') {
         this.ctx.drawImage(
-          this.mask,
+          GLOBAL_MASK.data,
           0,
           0,
           this.canvas.width,
@@ -287,7 +302,7 @@ export default class Barrage {
     }
 
     // 绘制数据
-    const context = this.mask ? this.anotherContext : this.ctx;
+    const context = GLOBAL_MASK.data ? this.anotherContext : this.ctx;
     context.globalAlpha = this.config.opacity;
     context.shadowColor = 'rgba(0, 0, 0, 1)';
     context.shadowOffsetX = 0;
@@ -300,7 +315,7 @@ export default class Barrage {
       context.fillText(d.text, d.left - translateX * d.speedRatio, d.top);
     });
 
-    if (this.mask) {
+    if (GLOBAL_MASK.data) {
       this.ctx.globalCompositeOperation = 'source-in';
       this.ctx.drawImage(
         this.anotherCanvas,
