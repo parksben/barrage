@@ -32,7 +32,7 @@ const GLOBAL_MASK = {
  * @param {number} config.textShadowBlur 字体阴影扩散系数，取值范围：[0, 1]
  * @param {number} config.opacity 字体透明度，取值范围：[0, 1]
  * @param {string} config.defaultColor 字体默认颜色
- * @param {boolean} overlapOptimized 弹幕装填时是否启用布局优化(以尽可能避免使相邻时间的弹幕重叠)，默认值：false
+ * @param {boolean} avoidOverlap 是否禁止弹幕重叠(有重叠部分的弹幕将不显示)，默认值：false
  * @param {string/ImageData} mask 蒙版图像信息，每 4 个元素表示一个像素的 RGBA 信息
  * @param {function} beforeRender 帧渲染前的钩子
  * @param {function} afterRender 帧渲染后的钩子
@@ -42,7 +42,7 @@ export default class Barrage {
     container,
     data = [],
     config = {},
-    overlapOptimized = false,
+    avoidOverlap = false,
     mask = [],
     beforeRender = () => {},
     afterRender = () => {},
@@ -75,7 +75,7 @@ export default class Barrage {
     this.ctx = this.canvas.getContext('2d');
 
     // 弹幕装填时是否启用布局优化
-    this.overlapOptimized = overlapOptimized;
+    this.avoidOverlap = avoidOverlap;
 
     // 全局参数设置
     this.setConfig({
@@ -138,26 +138,28 @@ export default class Barrage {
     return randomTop;
   }
 
-  _optimizeData() {
-    // 尽量避免文字重叠
-    if (this.data) {
-      for (let d of this.data) {
-        for (let x of this.data) {
-          const hasOverlap =
-            (Math.abs(x.top - d.top) < this.config.fontSize * 0.1 &&
-              x.left >= d.left &&
-              x.left <= d.left + d.width) ||
-            (Math.abs(x.top - d.top) < this.config.fontSize * 0.1 &&
-              x.left + x.width >= d.left &&
-              x.left + x.width <= d.left + d.width);
+  // _optimizeData() {
+  //   // 尽量避免文字重叠
+  //   if (this.data) {
+  //     for (let d of this.data) {
+  //       for (let x of this.data) {
+  //         const hasOverlap =
+  //           (Math.abs(x.top - d.top) < this.config.fontSize * 0.1 &&
+  //             x.left >= d.left &&
+  //             x.left <= d.left + d.width) ||
+  //           (Math.abs(x.top - d.top) < this.config.fontSize * 0.1 &&
+  //             x.left + x.width >= d.left &&
+  //             x.left + x.width <= d.left + d.width);
 
-          if (hasOverlap) {
-            x.top = this._randomTop();
-          }
-        }
-      }
-    }
-  }
+  //         if (hasOverlap) {
+  //           x.hasOverlap = true;
+  //         }
+  //       }
+  //     }
+
+  //     console.log(this.data.filter(x => x.hasOverlap));
+  //   }
+  // }
 
   setData(data) {
     // 保存上一次数据集
@@ -195,12 +197,10 @@ export default class Barrage {
           top: this._randomTop(),
           width,
           height: this.config.fontSize,
-          speedRatio: Math.random() + 1,
+          speedRatio: 0.5 * Math.random() + 1,
         };
       }
     );
-
-    if (this.overlapOptimized) this._optimizeData();
   }
 
   add({
@@ -260,13 +260,18 @@ export default class Barrage {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     // 筛选待渲染的数据
-    const dataShown = this.data
+    let dataShown = this.data
       .filter(
         x =>
           x.left + x.width - translateX * x.speedRatio >= 0 &&
           x.left - translateX * x.speedRatio < this.canvas.width
       )
       .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+    // 是否禁止重叠
+    if (this.avoidOverlap) {
+      dataShown = dataShown.filter(x => !x.hasOverlap);
+    }
 
     // 执行渲染前的回调
     if (this.beforeRender)

@@ -26,27 +26,27 @@ npm install --save barrage-ui
 ## 快速开始
 
 ```js
-import Barrage from 'barrage-ui';
-import example from 'barrage-ui/example.json'; // 组件提供的示例数据
+import Barrage from "barrage-ui";
+import example from "barrage-ui/example.json"; // 组件提供的示例数据
 
 // 加载弹幕
 const barrage = new Barrage({
-  container: 'barrage', // 父级容器或ID
+  container: "barrage", // 父级容器或ID
   data: example, // 弹幕数据
   config: {
     // 全局配置项
     duration: 20000, // 弹幕循环周期(单位：毫秒)
-    defaultColor: '#fff', // 弹幕默认颜色
+    defaultColor: "#fff", // 弹幕默认颜色
   },
 });
 
 // 新增一条弹幕
 barrage.add({
-  key: 'fctc651a9pm2j20bia8j', // 弹幕的唯一标识
+  key: "fctc651a9pm2j20bia8j", // 弹幕的唯一标识
   time: 1000, // 弹幕出现的时间(单位：毫秒)
-  text: '这是新增的一条弹幕', // 弹幕文本内容
+  text: "这是新增的一条弹幕", // 弹幕文本内容
   fontSize: 24, // 该条弹幕的字号大小(单位：像素)，会覆盖全局设置
-  color: '#0ff', // 该条弹幕的颜色，会覆盖全局设置
+  color: "#0ff", // 该条弹幕的颜色，会覆盖全局设置
 });
 
 // 播放弹幕
@@ -57,15 +57,15 @@ barrage.play();
 
 创建弹幕实例时，需要传入的初始化参数如下：
 
-|       参数       |                                    数据类型                                    |              默认值              | 说明                                                                                                                                                           |
-| :--------------: | :----------------------------------------------------------------------------: | :------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|    container     |                                 string/element                                 |          必传，无默认值          | 弹幕的挂载点                                                                                                                                                   |
-|       data       |                                     array                                      |                []                | 弹幕数据                                                                                                                                                       |
-|      config      |                                     object                                     |          详见全局配置项          | 详见[全局配置项](#全局配置项)                                                                                                                                  |
-|       mask       | string/[ImageData](https://developer.mozilla.org/zh-CN/docs/Web/API/ImageData) |         string/ImageData         | 蒙版图像，用于实现蒙版弹幕效果，详见[蒙版弹幕](#蒙版弹幕)                                                                                                      |
-|   beforeRender   |                                    function                                    | (ctx, progress, animState) => {} | 帧渲染前的回调，函数实参分别为：<br/>**`ctx`** canvas 画布的上下文<br/>**`progress`** 动画的播放进度(毫秒)<br/>**`animState`** 动画状态: 'paused' 或 'playing' |
-|   afterRender    |                                    function                                    | (ctx, progress, animState) => {} | 帧渲染后的回调，函数实参分别为：<br/>**`ctx`** canvas 画布的上下文<br/>**`progress`** 动画的播放进度(毫秒)<br/>**`animState`** 动画状态: 'paused' 或 'playing' |
-| overlapOptimized |                                    boolean                                     |              false               | 弹幕装填时是否启用布局优化，以尽可能避免使相邻时间的弹幕重叠                                                                                                   |
+|     参数     |                                    数据类型                                    |              默认值              | 说明                                                                                                                                                           |
+| :----------: | :----------------------------------------------------------------------------: | :------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|  container   |                                 string/element                                 |          必传，无默认值          | 弹幕的挂载点                                                                                                                                                   |
+|     data     |                                     array                                      |                []                | 弹幕数据                                                                                                                                                       |
+|    config    |                                     object                                     |          详见全局配置项          | 详见[全局配置项](#全局配置项)                                                                                                                                  |
+|     mask     | string/[ImageData](https://developer.mozilla.org/zh-CN/docs/Web/API/ImageData) |         string/ImageData         | 蒙版图像，用于实现蒙版弹幕效果，详见[蒙版弹幕](#蒙版弹幕)                                                                                                      |
+| beforeRender |                                    function                                    | (ctx, progress, animState) => {} | 帧渲染前的回调，函数实参分别为：<br/>**`ctx`** canvas 画布的上下文<br/>**`progress`** 动画的播放进度(毫秒)<br/>**`animState`** 动画状态: 'paused' 或 'playing' |
+| afterRender  |                                    function                                    | (ctx, progress, animState) => {} | 帧渲染后的回调，函数实参分别为：<br/>**`ctx`** canvas 画布的上下文<br/>**`progress`** 动画的播放进度(毫秒)<br/>**`animState`** 动画状态: 'paused' 或 'playing' |
+| avoidOverlap |                                    boolean                                     |              false               | 是否禁止弹幕重叠(有重叠部分的弹幕将不显示)                                                                                                                     |
 
 其中，`container` 参数在初始化实例时必传，其他参数为可选，数据类型及默认值如上表所示。
 
@@ -140,7 +140,7 @@ barrage.setConfig({ opacity: 0.5 });
 
 ```js
 const barrage = new Barrage({
-  container: 'barrage',
+  container: "barrage",
   data: JSON_DATA, // JSON_DATA -> 你的弹幕数据
 });
 ```
@@ -149,7 +149,7 @@ const barrage = new Barrage({
 
 ```js
 const barrage = new Barrage({
-  container: 'barrage',
+  container: "barrage",
 });
 
 barrage.setData(JSON_DATA); // JSON_DATA -> 你的弹幕数据
@@ -161,11 +161,11 @@ barrage.setData(JSON_DATA); // JSON_DATA -> 你的弹幕数据
 
 ```js
 barrage.add({
-  key: 'fctc651a9pm2j20bia8j',
+  key: "fctc651a9pm2j20bia8j",
   time: 1000,
-  text: '这是新增的一条弹幕',
+  text: "这是新增的一条弹幕",
   fontSize: 26,
-  color: '#0ff',
+  color: "#0ff",
 });
 ```
 
@@ -272,7 +272,7 @@ mask - 蒙版图像的 url 或 [ImageData](https://developer.mozilla.org/zh-CN/d
 > **用例**
 
 ```js
-barrage.setMask('mask.png'); // 通过图片 url 设置蒙版图像
+barrage.setMask("mask.png"); // 通过图片 url 设置蒙版图像
 
 barrage.setMask(imageData); // 直接设置 ImageData 类型的数据
 ```
@@ -334,29 +334,29 @@ Barrage 组件的初始化参数中的 `mask` 一项即用于处理蒙版效果�
 - 可通过初始化参数 `mask` 传入蒙版图像:
 
 ```js
-import Barrage from 'barrage-ui';
-import example from 'barrage-ui/example.json';
+import Barrage from "barrage-ui";
+import example from "barrage-ui/example.json";
 
 const barrage = new Barrage({
-  container: 'barrage',
+  container: "barrage",
   data: example,
-  mask: 'mask.png', // 传入蒙版图像的 url
+  mask: "mask.png", // 传入蒙版图像的 url
 });
 ```
 
 - 也可以在弹幕初始化后，通过 `.setMask()` 方法进行实时更新：
 
 ```js
-import Barrage from 'barrage-ui';
-import example from 'barrage-ui/example.json';
+import Barrage from "barrage-ui";
+import example from "barrage-ui/example.json";
 
 const barrage = new Barrage({
-  container: 'barrage',
+  container: "barrage",
   data: example,
 });
 
 // 设置蒙版图像
-barrage.setMask('mask.png'); // 传入蒙版图像的 url
+barrage.setMask("mask.png"); // 传入蒙版图像的 url
 ```
 
 > **注意**
@@ -370,11 +370,11 @@ barrage.setMask('mask.png'); // 传入蒙版图像的 url
 使用组件提供的 beforeRender 钩子函数，可以轻易的实现：
 
 ```js
-import Barrage from 'barrage-ui';
-import example from 'barrage-ui/example.json';
+import Barrage from "barrage-ui";
+import example from "barrage-ui/example.json";
 
 const barrage = new Barrage({
-  container: 'barrage',
+  container: "barrage",
   data: example,
   beforeRender: (ctx, progress) => {
     const imageData = getMask(progress); // 用于获取当前进度对应蒙版的方法
@@ -386,11 +386,11 @@ const barrage = new Barrage({
 当然，beforeRender 钩子也可以在弹幕初始化之后挂载：
 
 ```js
-import Barrage from 'barrage-ui';
-import example from 'barrage-ui/example.json';
+import Barrage from "barrage-ui";
+import example from "barrage-ui/example.json";
 
 const barrage = new Barrage({
-  container: 'barrage',
+  container: "barrage",
   data: example,
 });
 
