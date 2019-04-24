@@ -1,4 +1,4 @@
-## 1.0.9 (2019-01-18)
+# [1.1.0](https://github.com/parksben/barrage/compare/4ceddef...v1.1.0) (2019-04-24)
 
 
 ### Bug Fixes
@@ -9,8 +9,9 @@
 
 ### Features
 
-* 增加清楚当前蒙版数据的方法 ([96072a3](https://github.com/parksben/barrage/commit/96072a3))
+* 增加清楚当前蒙版数据的方法 ([bd4d7e3](https://github.com/parksben/barrage/commit/bd4d7e3))
 * 实现动画状态的可访问属性 ([e9c0b00](https://github.com/parksben/barrage/commit/e9c0b00))
+* 实现弹幕自动布局特性 ([1c2eab2](https://github.com/parksben/barrage/commit/1c2eab2))
 
 
 
