@@ -12,6 +12,7 @@
     "url": "git+ssh://git@github.com/parksben/barrage.git"
   },
   "keywords": [
+    "danmaku",
     "barrage",
     "danmu",
     "web-player",
