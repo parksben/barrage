@@ -4,7 +4,12 @@ Best and lightest barrage component for web UI.
 
 适用于 web 端用户界面和播放器的轻量级弹幕组件
 
+## 案例展示
+
 ![Demo](https://github.com/parksben/barrage/raw/master/images/barrage.gif)
+
+* 案例源码 -> <https://github.com/parksben/masking-danmaku-demo>
+* 在线运行效果 -> <https://masking-danmaku-demo.netlify.com/>
 
 ## 用途
 
