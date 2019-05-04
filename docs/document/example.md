@@ -10,21 +10,21 @@ title: 项目案例
 
 <table>
   <tr>
-    <td>案例介绍</td>
+    <td>博客</td>
     <td>
-      <a target="_blank" rel="noopener noreferrer" href="https://github.com/parksben/masking-danmaku-demo/blob/master/how-to-implement-masking-danmaku.md">【小案例】基于色键技术的纯客户端实时蒙版弹幕</a>
+      <a target="_blank" rel="noopener noreferrer" href="https://github.com/parksben/masking-danmaku-demo/blob/master/how-to-implement-masking-danmaku.md">基于色键技术的纯客户端实时蒙版弹幕</a>
     </td>
   </tr>
   <tr>
-    <td>案例源码</td>
+    <td>源码</td>
     <td>
-      <a target="_blank" rel="noopener noreferrer" href="https://github.com/parksben/masking-danmaku-demo">GitHub</a>
+      <a target="_blank" rel="noopener noreferrer" href="https://github.com/parksben/masking-danmaku-demo">GitHub Repo</a>
     </td>
   </tr>
   <tr>
-    <td>线上 Demo</td>
+    <td>Demo</td>
     <td>
-      <a target="_blank" rel="noopener noreferrer" href="https://masking-danmaku-demo.netlify.com/">Netlify</a>
+      <a target="_blank" rel="noopener noreferrer" href="https://masking-danmaku-demo.netlify.com/">Demo Online</a>
     </td>
   </tr>
 </table>

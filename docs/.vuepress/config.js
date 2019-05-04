@@ -8,7 +8,7 @@ module.exports = {
     nav: [
       { text: '首页', link: '/' },
       { text: '项目文档', link: '/document/' },
-      { text: '项目案例', link: '/document/example' },
+      { text: 'Demo', link: 'https://masking-danmaku-demo.netlify.com/' },
     ],
     sidebar: {
       '/document/': [

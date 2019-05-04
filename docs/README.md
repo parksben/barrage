@@ -5,22 +5,27 @@ description: 可实现B站蒙版弹幕效果的轻量级前端组件
 actionText: 快速上手 →
 actionLink: /document/
 features:
-- title: 『一切皆可弹幕』
-  details: 基于 Canvas 实现，给网页上的任何元素（如：视频、图片等）挂载弹幕动画
-- title: 『蒙版弹幕』
-  details: 具备用于实现 B站(bilibili.com) 风格的 蒙版弹幕 效果的能力
-- title: 『逐帧处理』
-  details: 基于组件提供的 API，可以自定义弹幕动画的每一帧渲染效果
+- title: 一切皆可『弹幕』化
+  details: 动画基于 Canvas 实现，可用于给网页上任何元素挂载弹幕评论
+- title: 简单 & 自由
+  details: 代码开源（MIT License）且无任何第三方依赖，可放心安装、自由地使用组件进行业务开发
+- title: 可定制 & 可延展
+  details: 基于相关接口，可精确定义每一帧渲染。可快速实现 B 站（bilibili.com）风格的『蒙版弹幕』效果
 footer: MIT Licensed | Copyright © 2019-present Parksben
 ---
 
-### :package: 安装
+## :clapper: Demo Online
+
+* 线上效果 - <https://masking-danmaku-demo.netlify.com/>
+* 案例源码 - <https://github.com/parksben/masking-danmaku-demo>
+
+## :package: 安装
 
 ```bash
 yarn add barrage-ui # 或者 npm install --save barrage-ui
 ```
 
-### :truck: 快速开始
+## :truck: 快速开始
 
 html
 

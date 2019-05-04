@@ -7,16 +7,16 @@
   },
   "name": "barrage-ui",
   "version": "1.2.0",
-  "description": "Best and lightest barrage component for web UI.",
+  "description": "Best and lightest danmaku component for web UI.",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/parksben/barrage.git"
   },
   "keywords": [
-    "弹幕",
     "danmaku",
     "barrage",
+    "弹幕",
     "danmu",
     "web-player",
     "video-player",
