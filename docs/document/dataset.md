@@ -17,6 +17,9 @@ title: 弹幕数据
   fontFamily: 'SimSun',
   fontSize: 32,
   color: 'yellow',
+  avatar: '/images/avatar.png',
+  avatarSize: 32,
+  avatarMarginRight: 8,
 }
 ```
 
@@ -25,9 +28,12 @@ title: 弹幕数据
 * time - 弹幕的动画时间 (**必须**)
 * text - 弹幕文本内容 (**必须**)
 * key - 数据的唯一标示 (**推荐**)
-* fontFamily - 弹幕文本的字体 (可选)
-* fontSize - 弹幕文本字号大小，单位：像素 (可选)
-* color - 弹幕文本的颜色 (可选)
+* fontFamily - 弹幕文本的字体，默认值：`'Microsoft Yahei'` (可选)
+* fontSize - 弹幕文本字号大小，单位：像素，默认值：`24` (可选)
+* color - 弹幕文本的颜色，默认值：`'#fff'` (可选)
+* avatar - 头像的 url，须为正方形图片，不支持跨域，默认值：`null` (可选)
+* avatarSize - 头像的大小，单位：像素，默认值为字号大小的 1.2 倍 (可选)
+* avatarMarginRight - 头像与文本的间距，单位：像素，默认值为字号大小的 0.2 倍 (可选)
 :::
 
 ::: warning 关于 key

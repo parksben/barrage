@@ -1,34 +1,68 @@
-// 异步加载图片
-export const loadImage = url => {
-  const picture = new Image();
-  picture.src = url;
+// 异步加载图片(若图片已加载，则使用缓存)
+const loadImageCache = {};
+export const loadImage = url =>
+  new Promise((resolve, reject) => {
+    if (loadImageCache[url]) {
+      resolve(loadImageCache[url]);
+    } else {
+      const picture = new Image();
+      picture.src = url;
 
-  return new Promise((resolve, reject) => {
-    picture.onload = () => {
-      resolve(picture);
-    };
-    picture.onerror = () => {
-      reject();
-    };
+      picture.onload = () => {
+        loadImageCache[url] = picture;
+        resolve(picture);
+      };
+
+      picture.onerror = () => {
+        reject();
+      };
+    }
   });
-};
 
-// 异步获取图像信息
-export const getImageData = (url, renderWidth, renderHeight, dx, dy, dw, dh) =>
-  loadImage(url).then(picture => {
+// 异步获取图像信息(若图片已加载，则使用缓存)
+const imageDataCache = {};
+export const getImageData = (
+  url,
+  renderWidth,
+  renderHeight,
+  dx,
+  dy,
+  dw,
+  dh
+) => {
+  if (imageDataCache[url]) {
+    return Promise.resolve(imageDataCache[url]);
+  }
+
+  return loadImage(url).then(picture => {
     const imgViewer = document.createElement('canvas');
     imgViewer.width = renderWidth || picture.width;
     imgViewer.height = renderHeight || picture.height;
     const context = imgViewer.getContext('2d');
 
     context.drawImage(picture, 0, 0, imgViewer.width, imgViewer.height);
-    return context.getImageData(
+    imageDataCache[url] = context.getImageData(
       dx || 0,
       dy || 0,
       dw || imgViewer.width,
       dh || imgViewer.height
     );
+
+    return imageDataCache[url];
   });
+};
+
+// 生成图片的 HTMLImageElement (若图片已存在，则使用缓存)
+const imageElementCache = {};
+export const makeImageElement = (url, alt) => {
+  if (!imageElementCache[url]) {
+    imageElementCache[url] = document.createElement('img');
+    imageElementCache[url].src = url;
+    imageElementCache[url].alt = alt || '';
+  }
+
+  return imageElementCache[url];
+};
 
 // 考虑浏览器兼容的 requestAnimationFrame 方法
 export const requestAnimationFrame =
@@ -65,13 +99,19 @@ export const layout = ({ config, canvas, data, avoidOverlap = false }) => {
       fontFamily = config.fontFamily,
       color = config.defaultColor,
       createdAt = new Date().toISOString(),
+      avatar,
+      avatarSize,
+      avatarMarginRight,
     }) => {
       // 计算文本宽度
       const { width } = canvasContext.measureText(text);
 
-      return {
+      const details = {
         key,
         time,
+        avatar: avatar || null,
+        avatarSize: avatarSize || (avatar ? 1.2 * fontSize : 0),
+        avatarMarginRight: avatarMarginRight || (avatar ? 0.2 * fontSize : 0),
         text,
         fontSize,
         fontFamily,
@@ -83,6 +123,9 @@ export const layout = ({ config, canvas, data, avoidOverlap = false }) => {
         randomRatio: Math.random(),
         visible: false,
       };
+      details.width += details.avatarSize + details.avatarMarginRight;
+
+      return details;
     }
   );
 

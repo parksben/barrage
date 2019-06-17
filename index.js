@@ -2,6 +2,7 @@ import {
   requestAnimationFrame,
   cancelAnimationFrame,
   loadImage,
+  makeImageElement,
   MIN_SEP,
   layout,
   insertItem,
@@ -254,18 +255,32 @@ export default class Barrage {
     context.shadowOffsetY = 0;
     context.shadowBlur = this.config.textShadowBlur * 2;
     context.textBaseline = 'top';
+
     dataShown.forEach(d => {
+      const left =
+        d.left -
+        (translateX +
+          this.canvas.width *
+            d.randomRatio *
+            2 *
+            MIN_SEP *
+            Math.sin((Math.PI * translateX) / this.canvas.width));
+
+      if (d.avatar && typeof d.avatar === 'string') {
+        context.drawImage(
+          makeImageElement(d.avatar),
+          left,
+          d.top - (d.avatarSize - d.fontSize) / 2,
+          d.avatarSize,
+          d.avatarSize
+        );
+      }
+
       context.font = `${d.fontSize}px ${d.fontFamily}`;
       context.fillStyle = d.color;
       context.fillText(
         d.text,
-        d.left -
-          (translateX +
-            this.canvas.width *
-              d.randomRatio *
-              2 *
-              MIN_SEP *
-              Math.sin((Math.PI * translateX) / this.canvas.width)),
+        left + d.avatarSize + d.avatarMarginRight,
         d.top
       );
     });
