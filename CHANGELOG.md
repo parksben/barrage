@@ -1,9 +1,10 @@
-## [1.3.1](https://github.com/parksben/barrage/compare/4ceddef...v1.3.1) (2019-06-17)
+## [1.3.2](https://github.com/parksben/barrage/compare/4ceddef...v1.3.2) (2019-06-17)
 
 
 ### Bug Fixes
 
 * 修复 暂停-切换进度-播放 过程的一个已知BUG ([ee8b9f1](https://github.com/parksben/barrage/commit/ee8b9f1))
+* 修复新增弹幕失败的问题 ([9e0550b](https://github.com/parksben/barrage/commit/9e0550b))
 * 暂停状态下切换进度画面不变的BUG ([4ceddef](https://github.com/parksben/barrage/commit/4ceddef))
 
 
