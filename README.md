@@ -4,6 +4,7 @@
 
 ![npm](https://img.shields.io/npm/l/barrage-ui.svg)
 ![npm](https://img.shields.io/npm/dt/barrage-ui.svg)
+![npm](https://img.shields.io/npm/v/barrage-ui/latest.svg)
 
 Best and lightest **danmaku** component for web UI.
 
