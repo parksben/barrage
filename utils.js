@@ -204,12 +204,18 @@ export const insertItem = ({
       fontFamily = config.fontFamily,
       color = config.defaultColor,
       createdAt = new Date().toISOString(),
+      avatar,
+      avatarSize,
+      avatarMarginRight,
     }) => {
       const { width } = canvasContext.measureText(text);
 
-      return {
+      const details = {
         key,
         time,
+        avatar: avatar || null,
+        avatarSize: avatarSize || (avatar ? 1.2 * fontSize : 0),
+        avatarMarginRight: avatarMarginRight || (avatar ? 0.2 * fontSize : 0),
         text,
         fontSize,
         fontFamily,
@@ -221,6 +227,9 @@ export const insertItem = ({
         randomRatio: Math.random(),
         visible: false,
       };
+      details.width += details.avatarSize + details.avatarMarginRight;
+
+      return details;
     }
   );
 

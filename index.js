@@ -151,6 +151,9 @@ export default class Barrage {
     fontFamily = this.config.fontFamily,
     color = this.config.defaultColor,
     createdAt = new Date().toISOString(),
+    avatar,
+    avatarSize,
+    avatarMarginRight,
   }) {
     const item = {
       time,
@@ -159,6 +162,9 @@ export default class Barrage {
       fontFamily,
       color,
       createdAt,
+      avatar,
+      avatarSize,
+      avatarMarginRight,
     };
 
     if (this.data && this.data.length) {
