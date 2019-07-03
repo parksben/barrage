@@ -1,4 +1,4 @@
-## [1.3.2](https://github.com/parksben/barrage/compare/4ceddef...v1.3.2) (2019-06-17)
+# [1.4.0](https://github.com/parksben/barrage/compare/4ceddef...v1.4.0) (2019-07-03)
 
 
 ### Bug Fixes
@@ -15,6 +15,7 @@
 * 实现动画状态的可访问属性 ([e9c0b00](https://github.com/parksben/barrage/commit/e9c0b00))
 * 实现弹幕自动布局特性 ([1c2eab2](https://github.com/parksben/barrage/commit/1c2eab2))
 * 新增弹幕头像的功能 ([f47c78c](https://github.com/parksben/barrage/commit/f47c78c))
+* 生产代码构建为 es5 产物 ([9f87295](https://github.com/parksben/barrage/commit/9f87295))
 
 
 
