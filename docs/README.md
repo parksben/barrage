@@ -8,7 +8,7 @@ features:
 - title: 一切皆可『弹幕』化
   details: 动画基于 Canvas 实现，可用于给网页上任何元素挂载弹幕评论
 - title: 简单 & 自由
-  details: 代码开源（MIT License）且无任何第三方依赖，可放心安装、自由地使用组件进行业务开发
+  details: 项目开源（MIT License）且源码无第三方依赖，可放心安装/构建、自由地使用组件进行业务开发
 - title: 可定制 & 可延展
   details: 基于相关接口，可精确定义每一帧渲染。可快速实现 B 站（bilibili.com）风格的『蒙版弹幕』效果
 footer: MIT Licensed | Copyright © 2019-present Parksben
