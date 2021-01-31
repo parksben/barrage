@@ -7,7 +7,7 @@
     "compile": "rimraf dist && npx babel src --source-maps --out-dir dist"
   },
   "name": "barrage-ui",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Best and lightest danmaku component for web UI.",
   "homepage": "https://barrage-ui.netlify.com/",
   "main": "index.js",

@@ -1,4 +1,4 @@
-# [1.4.0](https://github.com/parksben/barrage/compare/4ceddef...v1.4.0) (2019-07-03)
+## [1.4.1](https://github.com/parksben/barrage/compare/4ceddef...v1.4.1) (2021-01-31)
 
 
 ### Bug Fixes
