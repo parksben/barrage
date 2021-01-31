@@ -27,14 +27,15 @@
   "author": "parksben",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.11",
     "conventional-changelog-cli": "^2.0.11",
     "rimraf": "^2.6.3",
     "vuepress": "^0.14.11"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4"
+    "core-js": "^3.8.3"
   }
 }
